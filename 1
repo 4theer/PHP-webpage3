@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Sources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #exerciseSources {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #exerciseSources li {
+            margin: 10px 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Online Exercise Sources</h1>
+
+    <p>Check out the following sources for online exercises:</p>
+
+    <ul id="exerciseSources">
+        <!-- JavaScript will dynamically populate this list -->
+    </ul>
+
+    <hr>
+
+    <h2>Submit Your Favorite Exercise Source</h2>
+
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <label for="userInput">Enter your favorite exercise source:</label>
+        <input type="text" id="userInput" name="userInput" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <?php
+    // PHP code to handle form submission
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $userInput = $_POST["userInput"];
+        echo "<p>You entered: $userInput</p>";
+    }
+    ?>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript code to dynamically populate exercise sources
+        var exerciseSources = [
+            { name: 'Bodybuilding.com', url: 'https://www.bodybuilding.com/' },
+            { name: 'Fitness Blender', url: 'https://www.fitnessblender.com/' },
+            { name: 'Darebee', url: 'https://www.darebee.com/' }
+            // Add more sources as needed
+        ];
+
+        var listContainer = document.getElementById('exerciseSources');
+
+        exerciseSources.forEach(function (source) {
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = source.url;
+            link.target = '_blank';
+            link.textContent = source.name;
+            listItem.appendChild(link);
+            listContainer.appendChild(listItem);
+        });
+
+        // JavaScript code to handle form submission
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            var userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === '') {
+                alert('Please enter your favorite exercise source before submitting.');
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
